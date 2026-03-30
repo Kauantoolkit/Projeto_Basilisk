@@ -1,0 +1,43 @@
+{
+  "name": "gym-manager-web",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "lint": "eslint src --ext .ts,.tsx"
+  },
+  "dependencies": {
+    "@basilisk/api": "file:../../basilisk-libs/packages/api",
+    "@basilisk/auth": "file:../../basilisk-libs/packages/auth",
+    "@basilisk/hooks": "file:../../basilisk-libs/packages/hooks",
+    "@basilisk/schemas": "file:../../basilisk-libs/packages/schemas",
+    "@basilisk/ui": "file:../../basilisk-libs/packages/ui",
+    "@basilisk/utils": "file:../../basilisk-libs/packages/utils",
+    "axios": "^1.6.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.21.0",
+    "react-query": "^3.39.3",
+    "zustand": "^4.4.7",
+    "react-hook-form": "^7.49.2",
+    "zod": "^3.22.4",
+    "@hookform/resolvers": "^3.3.2",
+    "date-fns": "^3.0.6",
+    "recharts": "^2.10.1",
+    "lucide-react": "^0.303.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.43",
+    "@types/react-dom": "^18.2.17",
+    "@vitejs/plugin-react": "^4.2.1",
+    "autoprefixer": "^10.4.16",
+    "eslint": "^8.55.0",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "postcss": "^8.4.32",
+    "tailwindcss": "^3.3.6",
+    "typescript": "^5.2.2",
+    "vite": "^5.0.8"
+  }
+}

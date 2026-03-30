@@ -79,6 +79,9 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 
+# ─── Claude Code ─────────────────────────────────────────────────────────────
+.claude/settings.local.json
+
 # ─── Misc ────────────────────────────────────────────────────────────────────
 *.tmp
 *.swp

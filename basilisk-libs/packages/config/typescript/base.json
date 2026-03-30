@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "extends": "../../../tsconfig.base.json",
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "baseUrl": ".",
+    "paths": {
+      "@basilisk/ui": ["../ui/src/index.ts"],
+      "@basilisk/hooks": ["../hooks/src/index.ts"],
+      "@basilisk/utils": ["../utils/src/index.ts"],
+      "@basilisk/schemas": ["../schemas/src/index.ts"],
+      "@basilisk/api": ["../api/src/index.ts"],
+      "@basilisk/auth": ["../auth/src/index.ts"]
+    }
+  }
+}

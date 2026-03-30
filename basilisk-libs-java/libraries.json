@@ -1,0 +1,187 @@
+{
+  "$schema": "https://basilisk.com.br/schemas/libraries.json",
+  "version": "0.1.0",
+  "description": "Catálogo de bibliotecas Java reutilizáveis do Basilisk. Consulte SEMPRE este arquivo antes de implementar qualquer funcionalidade no backend.",
+  "libraries": [
+    {
+      "artifactId": "basilisk-core",
+      "groupId": "com.basilisk",
+      "status": "stable",
+      "description": "Envelope padrão de resposta (ApiResponse), exceção de negócio (BusinessException) e handler global de erros (GlobalExceptionHandler). Base obrigatória para qualquer projeto Basilisk.",
+      "whenToUse": [
+        "Qualquer retorno de controller — usar ApiResponse.ok() ou ApiResponse.error()",
+        "Lançar erros de negócio com status HTTP — usar BusinessException",
+        "Validação de @Valid falha — GlobalExceptionHandler trata automaticamente"
+      ],
+      "whenNotToUse": [
+        "Erros de infraestrutura que não são regra de negócio — logar e lançar exception genérica"
+      ],
+      "provides": [
+        {
+          "class": "com.basilisk.core.dto.ApiResponse<T>",
+          "description": "Envelope padrão: { success, data, message, errors, timestamp }",
+          "example": "return ResponseEntity.ok(ApiResponse.ok(userResponse));"
+        },
+        {
+          "class": "com.basilisk.core.exception.BusinessException",
+          "description": "RuntimeException com HttpStatus configurável. Padrão: 400.",
+          "example": "throw new BusinessException(\"E-mail já cadastrado\", HttpStatus.CONFLICT);"
+        },
+        {
+          "class": "com.basilisk.core.exception.GlobalExceptionHandler",
+          "description": "@RestControllerAdvice que captura BusinessException e MethodArgumentNotValidException automaticamente via auto-configuration."
+        }
+      ],
+      "dependency": {
+        "maven": "<dependency>\n  <groupId>com.basilisk</groupId>\n  <artifactId>basilisk-core</artifactId>\n  <version>${basilisk.version}</version>\n</dependency>"
+      },
+      "tags": ["response", "exception", "handler", "resposta", "erro", "validação"]
+    },
+    {
+      "artifactId": "basilisk-security",
+      "groupId": "com.basilisk",
+      "status": "stable",
+      "description": "JWT service para geração e validação de tokens, filtro de autenticação JWT e auto-configuração do Spring Security. Configurável via properties.",
+      "whenToUse": [
+        "Qualquer projeto que use autenticação JWT stateless",
+        "Geração de tokens no login — usar JwtService.generateToken()",
+        "Validação de token em cada requisição — JwtAuthFilter registrado automaticamente"
+      ],
+      "whenNotToUse": [
+        "OAuth2 / SSO externos — use spring-boot-starter-oauth2-resource-server",
+        "Autenticação por sessão/cookie — não é o modelo Basilisk"
+      ],
+      "configuration": {
+        "required": [
+          "basilisk.security.jwt.secret: chave HMAC-SHA256, mínimo 32 caracteres"
+        ],
+        "optional": [
+          "basilisk.security.jwt.expiration-ms: padrão 86400000 (24h)"
+        ]
+      },
+      "provides": [
+        {
+          "class": "com.basilisk.security.jwt.JwtService",
+          "description": "generateToken(), isTokenValid(), extractUsername(). Registrado como bean automaticamente.",
+          "example": "String token = jwtService.generateToken(userDetails);"
+        },
+        {
+          "class": "com.basilisk.security.jwt.JwtAuthFilter",
+          "description": "OncePerRequestFilter que extrai e valida o Bearer token. Registrado automaticamente. O projeto deve adicioná-lo ao SecurityFilterChain."
+        }
+      ],
+      "dependency": {
+        "maven": "<dependency>\n  <groupId>com.basilisk</groupId>\n  <artifactId>basilisk-security</artifactId>\n  <version>${basilisk.version}</version>\n</dependency>"
+      },
+      "tags": ["jwt", "auth", "security", "token", "autenticação", "segurança"]
+    },
+    {
+      "artifactId": "basilisk-permission",
+      "groupId": "com.basilisk",
+      "status": "stable",
+      "description": "Sistema de permissões por bitmask com cache em memória. Cada permissão é um bit (potência de 2). O valor do usuário em um recurso é o OR acumulado. Verificação via @RequiresPermission no método.",
+      "whenToUse": [
+        "Controle de acesso a nível de operação (VER, EDITAR, ADICIONAR, EXCLUIR)",
+        "Permissões dinâmicas cadastradas no banco",
+        "Verificação declarativa de permissão — anotar o método com @RequiresPermission"
+      ],
+      "whenNotToUse": [
+        "Controle de acesso simples por role (ADMIN/USER) — use @PreAuthorize('hasRole') do Spring Security",
+        "Permissões por instância de dado (ex: user só vê seu próprio registro) — lógica de filtro no service"
+      ],
+      "bitmaskExamples": {
+        "VER": 1,
+        "EDITAR": 2,
+        "ADICIONAR": 4,
+        "EXCLUIR": 8,
+        "VER+EDITAR": 3,
+        "TODOS": 15
+      },
+      "provides": [
+        {
+          "class": "com.basilisk.permission.annotation.RequiresPermission",
+          "description": "Anota um método com resource + permissions[]. O Aspect verifica o usuário autenticado automaticamente.",
+          "example": "@RequiresPermission(resource = \"USUARIOS\", permissions = {\"VER\", \"EDITAR\"})\npublic UserResponse update(...) { ... }"
+        },
+        {
+          "class": "com.basilisk.permission.cache.PermissionCache",
+          "description": "Cache ConcurrentHashMap carregado no startup. resolve(names) retorna OR dos bitmasks. Atualizável em runtime.",
+          "example": "long bitmask = permissionCache.resolve(\"VER\", \"EDITAR\"); // retorna 3L"
+        },
+        {
+          "class": "com.basilisk.permission.service.PermissionService",
+          "description": "hasPermission(), grant(), revoke(), createPermission(), deletePermission().",
+          "example": "permissionService.grant(userId, \"RELATORIOS\", \"VER\", \"ADICIONAR\");"
+        },
+        {
+          "class": "com.basilisk.permission.entity.UserPermission",
+          "description": "userId como UUID simples (sem FK). resource é o nome do módulo/tela. value é o bitmask acumulado."
+        }
+      ],
+      "note": "O PermissionAspect espera que UserDetails.getUsername() retorne o UUID do usuário. Se o projeto usar email como username, sobrescreva o bean PermissionAspect.",
+      "dependency": {
+        "maven": "<dependency>\n  <groupId>com.basilisk</groupId>\n  <artifactId>basilisk-permission</artifactId>\n  <version>${basilisk.version}</version>\n</dependency>"
+      },
+      "tags": ["permission", "bitmask", "access", "permissão", "acesso", "autorização"]
+    },
+    {
+      "artifactId": "basilisk-audit",
+      "groupId": "com.basilisk",
+      "status": "stable",
+      "description": "Interceptor que persiste de forma assíncrona um log de auditoria para requisições de escrita (POST, PUT, PATCH, DELETE). Ignora GET/OPTIONS/HEAD.",
+      "whenToUse": [
+        "Qualquer projeto que precise de rastreabilidade de alterações",
+        "Sistemas com requisito de auditoria (quem fez o quê, quando, de qual IP)"
+      ],
+      "whenNotToUse": [
+        "Projetos read-only ou internos sem requisito de auditoria — evita I/O desnecessário"
+      ],
+      "provides": [
+        {
+          "class": "com.basilisk.audit.interceptor.AuditInterceptor",
+          "description": "HandlerInterceptor. Salva AuditLog assincronamente via @Async. O projeto deve registrá-lo no WebMvcConfigurer.",
+          "example": "registry.addInterceptor(auditInterceptor).addPathPatterns(\"/api/**\");"
+        },
+        {
+          "class": "com.basilisk.audit.entity.AuditLog",
+          "description": "Entidade JPA: userEmail, method, uri, ipAddress, statusCode, durationMs, createdAt."
+        }
+      ],
+      "note": "Requer @EnableAsync na classe principal da aplicação para que @Async funcione.",
+      "dependency": {
+        "maven": "<dependency>\n  <groupId>com.basilisk</groupId>\n  <artifactId>basilisk-audit</artifactId>\n  <version>${basilisk.version}</version>\n</dependency>"
+      },
+      "tags": ["audit", "log", "tracking", "auditoria", "rastreabilidade", "histórico"]
+    },
+    {
+      "artifactId": "basilisk-web",
+      "groupId": "com.basilisk",
+      "status": "stable",
+      "description": "Interceptores HTTP utilitários: log de entrada/saída de requisições (RequestLoggingInterceptor) e bloqueio de usuários desabilitados (ActiveUserInterceptor).",
+      "whenToUse": [
+        "Qualquer projeto — logging de requisições é padrão",
+        "Projetos com usuários que podem ser desativados — ActiveUserInterceptor bloqueia antes de chegar no controller"
+      ],
+      "whenNotToUse": [
+        "Se o projeto já usa um APM (Datadog, New Relic) para logging de requests — evitar duplicidade"
+      ],
+      "provides": [
+        {
+          "class": "com.basilisk.web.interceptor.RequestLoggingInterceptor",
+          "description": "Loga '--> METHOD URI' no preHandle e '<-- METHOD URI STATUS (Xms)' no afterCompletion.",
+          "example": "registry.addInterceptor(requestLoggingInterceptor).order(1);"
+        },
+        {
+          "class": "com.basilisk.web.interceptor.ActiveUserInterceptor",
+          "description": "Verifica UserDetails.isEnabled(). Lança 403 se false. Deve ser registrado APÓS o filtro JWT.",
+          "example": "registry.addInterceptor(activeUserInterceptor).order(2);"
+        }
+      ],
+      "note": "Os interceptores são criados como beans via auto-configuration. O projeto registra no WebMvcConfigurer na ordem desejada: 1=logging, 2=activeUser, 3=audit.",
+      "dependency": {
+        "maven": "<dependency>\n  <groupId>com.basilisk</groupId>\n  <artifactId>basilisk-web</artifactId>\n  <version>${basilisk.version}</version>\n</dependency>"
+      },
+      "tags": ["interceptor", "logging", "middleware", "web", "request", "requisição"]
+    }
+  ]
+}

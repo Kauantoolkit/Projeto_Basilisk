@@ -1,0 +1,18 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/basilisk_dev
+    username: ${DB_USER:postgres}
+    password: ${DB_PASSWORD:postgres}
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+logging:
+  level:
+    com.basilisk: DEBUG
+    org.springframework.security: DEBUG
+
+basilisk:
+  jwt:
+    secret: dev-secret-key-mude-em-producao-min-256bits-xxxxxxxxxxx
