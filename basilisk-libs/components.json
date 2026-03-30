@@ -1,0 +1,515 @@
+{
+  "$schema": "./components.schema.json",
+  "version": "0.1.0",
+  "generatedAt": "2026-03-29",
+  "howToSearch": "Busque pelo campo 'tags' usando palavras do contexto do que você precisa construir. Se a tag bater, leia 'description', 'whenToUse' e 'whenNotToUse' para confirmar o match. Em caso de dúvida, leia o arquivo em 'path'.",
+  "packages": {
+
+    "@basilisk/ui": {
+      "description": "Componentes visuais React prontos para uso — acessíveis, tipados e com variantes via CVA",
+      "components": [
+
+        {
+          "name": "Button",
+          "status": "stable",
+          "path": "packages/ui/src/Button",
+          "import": "import { Button } from '@basilisk/ui'",
+          "description": "Botão de ação genérico. Suporta 5 variantes visuais (primary, secondary, outline, ghost, danger), 3 tamanhos, estado de loading com spinner automático, ícones à esquerda e direita, e largura total. Herda todos os atributos nativos de <button>.",
+          "whenToUse": "Qualquer ação que o usuário executa: salvar, cancelar, confirmar, enviar, excluir, navegar, abrir modal, fazer login, fazer upload. Se é algo clicável que dispara uma ação, use Button.",
+          "whenNotToUse": "Links de navegação entre páginas (use <a> ou componente Link do router). Ações inline dentro de texto.",
+          "example": "// Salvar formulário com loading\n<Button variant=\"primary\" isLoading={isSaving} onClick={handleSave}>Salvar</Button>\n\n// Botão de perigo com ícone\n<Button variant=\"danger\" leftIcon={<TrashIcon />}>Excluir conta</Button>\n\n// Ação secundária\n<Button variant=\"outline\" onClick={onCancel}>Cancelar</Button>",
+          "tags": ["button", "ação", "action", "salvar", "save", "confirmar", "confirm", "cancelar", "cancel", "enviar", "send", "submit", "excluir", "delete", "criar", "create", "editar", "edit", "click", "interactive", "form", "loading", "spinner", "cta", "danger", "primary", "ghost", "outline"],
+          "props": [
+            { "name": "variant", "type": "'primary' | 'secondary' | 'outline' | 'ghost' | 'danger'", "default": "'primary'", "description": "Hierarquia visual. Use primary para ação principal, outline/ghost para secundárias, danger para ações destrutivas." },
+            { "name": "size", "type": "'sm' | 'md' | 'lg'", "default": "'md'" },
+            { "name": "isLoading", "type": "boolean", "default": "false", "description": "Exibe spinner e desabilita o botão automaticamente. Ideal para submits assíncronos." },
+            { "name": "fullWidth", "type": "boolean", "default": "false" },
+            { "name": "leftIcon", "type": "ReactNode", "description": "Ícone antes do texto. Não exibido durante isLoading." },
+            { "name": "rightIcon", "type": "ReactNode" },
+            { "name": "disabled", "type": "boolean", "description": "Herdado de HTMLButtonElement." }
+          ],
+          "relatedComponents": ["Input", "Modal"]
+        },
+
+        {
+          "name": "Input",
+          "status": "stable",
+          "path": "packages/ui/src/Input",
+          "import": "import { Input } from '@basilisk/ui'",
+          "description": "Campo de entrada de texto com label flutuante, mensagem de erro em vermelho, texto auxiliar (helperText), suporte a ícones decorativos em ambos os lados e marcação automática de campo obrigatório (*). Integra com React Hook Form via ref. Gerencia aria-invalid e aria-describedby automaticamente para acessibilidade.",
+          "whenToUse": "Todo campo de texto livre: nome, e-mail, senha, busca, telefone, endereço, descrição. Qualquer <input type=\"text | email | password | number | tel | search | url\">.",
+          "whenNotToUse": "Seleção entre opções fixas (use Select). Múltiplas linhas de texto (use Textarea quando disponível). Checkbox ou radio (use componentes específicos).",
+          "example": "// Campo de e-mail com erro de validação\n<Input\n  label=\"E-mail\"\n  type=\"email\"\n  error={errors.email?.message}\n  {...register('email')}\n/>\n\n// Campo de busca com ícone\n<Input\n  placeholder=\"Buscar clientes...\"\n  leftIcon={<SearchIcon />}\n  value={search}\n  onChange={e => setSearch(e.target.value)}\n/>",
+          "tags": ["input", "campo", "field", "texto", "text", "email", "senha", "password", "busca", "search", "nome", "name", "telefone", "phone", "formulário", "form", "label", "erro", "error", "validação", "validation", "required", "obrigatório"],
+          "props": [
+            { "name": "label", "type": "string", "description": "Rótulo exibido acima do campo." },
+            { "name": "error", "type": "string", "description": "Mensagem de erro. Quando preenchida, borda fica vermelha e mensagem aparece abaixo." },
+            { "name": "helperText", "type": "string", "description": "Texto auxiliar exibido abaixo do campo quando não há erro." },
+            { "name": "leftIcon", "type": "ReactNode", "description": "Ícone decorativo à esquerda (ex: SearchIcon, MailIcon)." },
+            { "name": "rightIcon", "type": "ReactNode" },
+            { "name": "fullWidth", "type": "boolean", "default": "false" }
+          ],
+          "relatedComponents": ["Select", "Button"]
+        },
+
+        {
+          "name": "Select",
+          "status": "stable",
+          "path": "packages/ui/src/Select",
+          "import": "import { Select } from '@basilisk/ui'",
+          "description": "Campo de seleção nativo (<select>) com as mesmas convenções visuais do Input: label, mensagem de erro, helperText, placeholder desabilitado e largura configurável. Recebe um array de opções tipado. Integra com React Hook Form via ref.",
+          "whenToUse": "Quando o usuário precisa escolher uma opção entre uma lista fechada: status, categoria, estado (UF), tipo de conta, perfil de acesso, etc.",
+          "whenNotToUse": "Listas muito longas com busca (use um Combobox/Autocomplete quando disponível). Seleção múltipla simultânea. Choices de sim/não simples (use um Toggle ou Checkbox).",
+          "example": "// Seleção de estado\n<Select\n  label=\"Estado\"\n  placeholder=\"Selecione...\"\n  options={ESTADOS_BR}\n  error={errors.estado?.message}\n  {...register('estado')}\n/>",
+          "tags": ["select", "seleção", "escolha", "choice", "dropdown", "opções", "options", "lista", "list", "status", "categoria", "category", "tipo", "type", "estado", "uf", "perfil", "role", "form", "formulário"],
+          "props": [
+            { "name": "label", "type": "string" },
+            { "name": "options", "type": "{ value: string | number; label: string; disabled?: boolean }[]", "description": "Array de opções. Construa o array antes de passar — não inline." },
+            { "name": "error", "type": "string" },
+            { "name": "helperText", "type": "string" },
+            { "name": "placeholder", "type": "string", "description": "Opção inicial desabilitada mostrada quando nenhum valor está selecionado." },
+            { "name": "fullWidth", "type": "boolean" }
+          ],
+          "relatedComponents": ["Input"]
+        },
+
+        {
+          "name": "Modal",
+          "status": "stable",
+          "path": "packages/ui/src/Modal",
+          "import": "import { Modal } from '@basilisk/ui'",
+          "description": "Dialog acessível renderizado via portal no <body>. Trava o scroll da página, gerencia foco, fecha com Escape e/ou clique no overlay (ambos configuráveis). Possui header com título e botão X, área de conteúdo com scroll interno e footer para ações. Cinco tamanhos pré-definidos.",
+          "whenToUse": "Confirmações de ação (\"Tem certeza que deseja excluir?\"), formulários de criação/edição inline, visualização de detalhes sem sair da página, alertas que exigem resposta do usuário.",
+          "whenNotToUse": "Notificações passivas que somem sozinhas (use Toast). Menus contextuais de cursor (use Dropdown). Painéis laterais persistentes (use Sidebar/Drawer quando disponível).",
+          "example": "// Modal de confirmação de exclusão\nconst [isOpen, setIsOpen] = useState(false);\n\n<Button variant=\"danger\" onClick={() => setIsOpen(true)}>Excluir</Button>\n\n<Modal\n  isOpen={isOpen}\n  onClose={() => setIsOpen(false)}\n  title=\"Confirmar exclusão\"\n  footer={\n    <>\n      <Button variant=\"outline\" onClick={() => setIsOpen(false)}>Cancelar</Button>\n      <Button variant=\"danger\" isLoading={isDeleting} onClick={handleDelete}>Excluir</Button>\n    </>\n  }\n>\n  <p>Esta ação não pode ser desfeita. Deseja continuar?</p>\n</Modal>",
+          "tags": ["modal", "dialog", "popup", "overlay", "confirmar", "confirm", "excluir", "deletar", "delete", "alerta", "alert", "formulário modal", "form modal", "edição", "edit", "criar", "create", "detalhe", "detail", "portal", "drawer"],
+          "props": [
+            { "name": "isOpen", "type": "boolean", "description": "Controla visibilidade. O componente não monta no DOM quando false." },
+            { "name": "onClose", "type": "() => void", "description": "Chamado ao clicar no X, no overlay ou pressionar Escape." },
+            { "name": "title", "type": "string", "description": "Título do header. Se omitido, o header inteiro não é renderizado." },
+            { "name": "size", "type": "'sm' | 'md' | 'lg' | 'xl' | 'full'", "default": "'md'" },
+            { "name": "footer", "type": "ReactNode", "description": "Área de botões de ação. Renderizado separado do conteúdo com scroll." },
+            { "name": "closeOnOverlayClick", "type": "boolean", "default": "true" },
+            { "name": "closeOnEsc", "type": "boolean", "default": "true" }
+          ],
+          "relatedComponents": ["Button"]
+        },
+
+        {
+          "name": "Card",
+          "status": "stable",
+          "path": "packages/ui/src/Card",
+          "import": "import { Card } from '@basilisk/ui'",
+          "description": "Container visual com borda sutil, sombra leve e padding padrão. Usa o padrão Compound Component: <Card.Header> adiciona separador inferior, <Card.Body> é o conteúdo principal e <Card.Footer> adiciona separador superior. Todos os subcomponentes são opcionais.",
+          "whenToUse": "Agrupar informações relacionadas em uma unidade visual delimitada: perfil de usuário, resumo de pedido, item de lista, painel de configuração, widget de dashboard, seção de formulário.",
+          "whenNotToUse": "Tabelas de dados (use DataTable). Notificações (use Toast). Quando não há conteúdo agrupado — um Card vazio não faz sentido.",
+          "example": "// Card de perfil com header e footer\n<Card>\n  <Card.Header>\n    <h3 className=\"font-semibold\">João Silva</h3>\n    <Badge variant=\"success\">Ativo</Badge>\n  </Card.Header>\n  <Card.Body>\n    <p>joao@email.com</p>\n  </Card.Body>\n  <Card.Footer>\n    <Button variant=\"ghost\" size=\"sm\">Editar perfil</Button>\n  </Card.Footer>\n</Card>",
+          "tags": ["card", "painel", "panel", "container", "seção", "section", "widget", "dashboard", "perfil", "profile", "resumo", "summary", "item", "bloco", "block", "box"],
+          "props": [
+            { "name": "noPadding", "type": "boolean", "default": "false", "description": "Remove o padding padrão (útil quando o conteúdo interno define seu próprio espaçamento, como uma imagem ou tabela que ocupa toda a largura)." }
+          ],
+          "subComponents": ["Card.Header", "Card.Body", "Card.Footer"],
+          "relatedComponents": ["Badge", "Button", "DataTable"]
+        },
+
+        {
+          "name": "Badge",
+          "status": "stable",
+          "path": "packages/ui/src/Badge",
+          "import": "import { Badge } from '@basilisk/ui'",
+          "description": "Etiqueta compacta inline para comunicar status, categoria ou contagem. Tem 7 variantes com paletas de cor semânticas: default (neutro), primary (destaque), success (verde), warning (amarelo), error (vermelho), info (azul), outline (transparente com borda).",
+          "whenToUse": "Status de pedido (Ativo, Cancelado, Pendente), role do usuário (Admin, Editor), categoria de item, contagem de notificações, indicadores de ambiente (Produção, Staging).",
+          "whenNotToUse": "Ações clicáveis (use Button). Textos longos — Badge é para rótulos curtos (1-3 palavras). Indicadores de progresso (use uma barra de progresso).",
+          "example": "// Status de pedido\n<Badge variant=\"success\">Aprovado</Badge>\n<Badge variant=\"warning\">Pendente</Badge>\n<Badge variant=\"error\">Recusado</Badge>\n\n// Role de usuário\n<Badge variant=\"primary\">Admin</Badge>",
+          "tags": ["badge", "tag", "etiqueta", "label", "status", "ativo", "active", "inativo", "inactive", "pendente", "pending", "aprovado", "approved", "cancelado", "cancelled", "role", "perfil", "category", "chip", "pill", "indicator", "contagem", "count"],
+          "props": [
+            { "name": "variant", "type": "'default' | 'primary' | 'success' | 'warning' | 'error' | 'info' | 'outline'", "default": "'default'", "description": "Escolha pela semântica: success=positivo/ativo, warning=atenção/pendente, error=negativo/bloqueado, info=neutro informativo." }
+          ],
+          "relatedComponents": ["Card"]
+        },
+
+        {
+          "name": "DataTable",
+          "status": "stable",
+          "path": "packages/ui/src/DataTable",
+          "import": "import { DataTable } from '@basilisk/ui'",
+          "description": "Tabela de dados genérica e totalmente tipada via TypeScript generics. Define colunas com accessor (chave do objeto ou função de render), header, alinhamento e largura. Exibe skeleton de loading (5 linhas animadas) durante carregamento e mensagem customizável quando não há dados. Linhas clicáveis via onRowClick.",
+          "whenToUse": "Listagem de qualquer entidade com múltiplas colunas: usuários, pedidos, produtos, transações, logs. Quando você precisa de uma grade de dados com cabeçalho, loading state e empty state prontos.",
+          "whenNotToUse": "Listas simples de 1-2 colunas sem headers (use ul/li ou Cards). Quando precisa de ordenação por coluna, filtros, seleção de linhas ou paginação embutida — essas features ainda não estão implementadas, crie localmente ou estenda a biblioteca.",
+          "example": "// Tabela de usuários\nconst columns: Column<User>[] = [\n  { header: 'Nome', accessor: 'name' },\n  { header: 'E-mail', accessor: 'email' },\n  { header: 'Status', accessor: row => <Badge variant={row.active ? 'success' : 'error'}>{row.active ? 'Ativo' : 'Inativo'}</Badge> },\n  { header: 'Ações', accessor: row => <Button size=\"sm\" variant=\"ghost\">Editar</Button>, align: 'right' },\n];\n\n<DataTable\n  columns={columns}\n  data={users}\n  rowKey=\"id\"\n  isLoading={isLoading}\n  onRowClick={user => router.push(`/users/${user.id}`)}\n/>",
+          "tags": ["table", "tabela", "grid", "lista", "list", "dados", "data", "usuários", "users", "pedidos", "orders", "produtos", "products", "linhas", "rows", "colunas", "columns", "loading", "skeleton", "empty", "vazio", "listagem", "listing"],
+          "props": [
+            { "name": "columns", "type": "Column<T>[]", "description": "Definição das colunas. accessor pode ser uma chave do tipo T ou uma função (row: T) => ReactNode para render customizado." },
+            { "name": "data", "type": "T[]", "description": "Array de dados. Pode ser array vazio []." },
+            { "name": "rowKey", "type": "keyof T | ((row: T) => string)", "description": "Identificador único de cada linha. Use o campo de id da entidade." },
+            { "name": "isLoading", "type": "boolean", "description": "Quando true, substitui linhas por skeletons animados." },
+            { "name": "emptyMessage", "type": "string", "default": "'Nenhum dado encontrado.'", "description": "Mensagem quando data é array vazio e isLoading é false." },
+            { "name": "onRowClick", "type": "(row: T) => void", "description": "Torna as linhas clicáveis com cursor pointer e hover highlight." }
+          ],
+          "relatedComponents": ["Badge", "Button", "Card"]
+        },
+
+        {
+          "name": "ToastProvider",
+          "status": "stable",
+          "path": "packages/ui/src/Toast",
+          "import": "import { ToastProvider } from '@basilisk/ui'",
+          "description": "Provider de contexto que deve envolver a aplicação (ou o layout raiz) para habilitar o sistema de notificações. Renderiza as notificações em um portal no canto inferior direito da tela. Sem este Provider, o hook useToast lança erro.",
+          "whenToUse": "Uma única vez no layout raiz da aplicação (ex: layout.tsx no Next.js, App.tsx no Vite).",
+          "whenNotToUse": "Não aninhe múltiplos ToastProviders. Não use em componentes folha.",
+          "example": "// Next.js app/layout.tsx\nexport default function RootLayout({ children }) {\n  return (\n    <html>\n      <body>\n        <ToastProvider>{children}</ToastProvider>\n      </body>\n    </html>\n  );\n}",
+          "tags": ["toast", "provider", "notificação", "notification", "contexto", "context", "layout", "root", "setup"],
+          "relatedComponents": ["useToast"]
+        },
+
+        {
+          "name": "useToast",
+          "status": "stable",
+          "path": "packages/ui/src/Toast",
+          "import": "import { useToast } from '@basilisk/ui'",
+          "description": "Hook que expõe 4 funções de notificação (success, error, warning, info) e a função genérica toast(). As notificações somem automaticamente após 4 segundos. Exige ToastProvider acima na árvore de componentes.",
+          "whenToUse": "Feedback imediato para ações do usuário: salvo com sucesso, erro ao salvar, item excluído, cópia realizada, operação concluída, sessão expirada.",
+          "whenNotToUse": "Erros de validação de formulário (exiba inline com Input.error). Confirmações que exigem resposta (use Modal). Conteúdo persistente que o usuário precisa ler com calma.",
+          "example": "const { success, error } = useToast();\n\nconst handleSave = async () => {\n  try {\n    await saveUser(data);\n    success('Usuário salvo com sucesso!');\n  } catch {\n    error('Erro ao salvar. Tente novamente.');\n  }\n};",
+          "tags": ["toast", "notificação", "notification", "sucesso", "success", "erro", "error", "aviso", "warning", "info", "feedback", "alerta", "salvo", "saved", "falhou", "failed", "hook"],
+          "relatedComponents": ["ToastProvider"]
+        }
+
+      ]
+    },
+
+    "@basilisk/hooks": {
+      "description": "React hooks reutilizáveis — sem dependências externas além do React",
+      "hooks": [
+
+        {
+          "name": "useDebounce",
+          "status": "stable",
+          "path": "packages/hooks/src/useDebounce.ts",
+          "import": "import { useDebounce } from '@basilisk/hooks'",
+          "description": "Retorna uma versão \"atrasada\" de qualquer valor, que só é atualizada após o usuário parar de alterá-la pelo delay configurado (padrão: 300ms). Evita chamadas excessivas à API ou recálculos pesados durante a digitação.",
+          "whenToUse": "Input de busca que faz chamada à API a cada keystroke. Filtros de lista com recálculo pesado. Qualquer valor que muda frequentemente mas cujo efeito deve esperar a estabilização.",
+          "whenNotToUse": "Valores que não mudam frequentemente. Quando você precisa de throttle (taxa máxima) em vez de debounce (esperar parar).",
+          "example": "const [search, setSearch] = useState('');\nconst debouncedSearch = useDebounce(search, 400);\n\nuseEffect(() => {\n  if (debouncedSearch) fetchUsers(debouncedSearch);\n}, [debouncedSearch]);",
+          "tags": ["debounce", "busca", "search", "input", "delay", "keystroke", "api", "performance", "digitação", "typing", "filtro", "filter"]
+        },
+
+        {
+          "name": "usePagination",
+          "status": "stable",
+          "path": "packages/hooks/src/usePagination.ts",
+          "import": "import { usePagination } from '@basilisk/hooks'",
+          "description": "Gerencia todo o estado de paginação: página atual, itens por página, total de páginas, flags hasNextPage/hasPrevPage. Expõe helpers de navegação (nextPage, prevPage, goToFirstPage, goToLastPage, setPage, setLimit). Ao mudar o limit, reseta para a página 1 automaticamente.",
+          "whenToUse": "Qualquer listagem paginada: tabelas, grids, feeds. Use em conjunto com DataTable e uma chamada à API que aceita page e limit.",
+          "whenNotToUse": "Listas locais pequenas (< 50 itens) onde paginação não é necessária. Scroll infinito (a lógica de append de dados fica fora deste hook).",
+          "example": "const { page, limit, totalPages, nextPage, prevPage, hasNextPage } = usePagination({ total: totalUsers });\n\nuseEffect(() => {\n  fetchUsers({ page, limit });\n}, [page, limit]);",
+          "tags": ["paginação", "pagination", "página", "page", "lista", "list", "navegar", "navigate", "próximo", "next", "anterior", "prev", "total", "limit", "tabela", "table"]
+        },
+
+        {
+          "name": "useLocalStorage",
+          "status": "stable",
+          "path": "packages/hooks/src/useLocalStorage.ts",
+          "import": "import { useLocalStorage } from '@basilisk/hooks'",
+          "description": "Substituto do useState com persistência automática no localStorage. A API é idêntica ao useState: retorna [valor, setValor, removeValor]. Serializa/deserializa JSON automaticamente. Sincroniza entre abas do navegador via StorageEvent. SSR-safe (retorna initialValue no servidor).",
+          "whenToUse": "Preferências do usuário que devem sobreviver ao reload: tema (dark/light), idioma, filtros aplicados, colunas visíveis, itens recentes, estado de sidebar.",
+          "whenNotToUse": "Dados sensíveis (tokens de autenticação — use tokenManager de @basilisk/auth). Dados de servidor que devem ser re-fetchados. Estado temporário de UI que não precisa persistir.",
+          "example": "const [theme, setTheme] = useLocalStorage('theme', 'light');\nconst [sidebarCollapsed, setSidebarCollapsed] = useLocalStorage('sidebar:collapsed', false);",
+          "tags": ["localStorage", "persistência", "persist", "preferência", "preference", "tema", "theme", "dark mode", "configuração", "settings", "cache", "estado", "state", "reload", "sessão", "session"]
+        },
+
+        {
+          "name": "useMediaQuery",
+          "status": "stable",
+          "path": "packages/hooks/src/useMediaQuery.ts",
+          "import": "import { useMediaQuery, useIsMobile, useIsTablet, useIsDesktop } from '@basilisk/hooks'",
+          "description": "Retorna true/false reativamente conforme a media query informada. Atualiza automaticamente ao redimensionar a janela. Exporta também aliases pré-configurados para breakpoints Tailwind: useIsMobile (<768px), useIsTablet (768-1023px), useIsDesktop (>=1024px). SSR-safe.",
+          "whenToUse": "Renderização condicional baseada em tamanho de tela: esconder colunas no mobile, renderizar menu hamburguer, ajustar layout, detectar preferência de tema do sistema.",
+          "whenNotToUse": "Quando você pode usar classes Tailwind responsivas diretamente no JSX (md:hidden, lg:flex). Prefira CSS quando possível — use este hook só quando precisar de lógica JS condicional.",
+          "example": "const isMobile = useIsMobile();\nconst prefersLight = useMediaQuery('(prefers-color-scheme: light)');\n\nreturn isMobile ? <MobileNav /> : <DesktopSidebar />;",
+          "tags": ["responsive", "responsivo", "mobile", "tablet", "desktop", "breakpoint", "tela", "screen", "media query", "layout", "dark mode", "preferência"]
+        },
+
+        {
+          "name": "useClickOutside",
+          "status": "stable",
+          "path": "packages/hooks/src/useClickOutside.ts",
+          "import": "import { useClickOutside } from '@basilisk/hooks'",
+          "description": "Executa um callback quando o usuário clica ou toca fora do elemento referenciado pelo ref passado. Escuta mousedown e touchstart no document. Remove os listeners automaticamente no unmount.",
+          "whenToUse": "Fechar dropdown ao clicar fora. Fechar menu de contexto. Dispensar popover. Qualquer comportamento de \"clicar fora para fechar\".",
+          "whenNotToUse": "Modais (já tratado internamente pelo componente Modal). Quando o elemento não tem ref.",
+          "example": "const dropdownRef = useRef<HTMLDivElement>(null);\nconst [isOpen, setIsOpen] = useState(false);\nuseClickOutside(dropdownRef, () => setIsOpen(false));\n\nreturn <div ref={dropdownRef}>{isOpen && <DropdownMenu />}</div>;",
+          "tags": ["click outside", "fora", "fechar", "close", "dropdown", "dismiss", "menu", "popover", "overlay", "foco", "focus trap"]
+        },
+
+        {
+          "name": "useAsync",
+          "status": "stable",
+          "path": "packages/hooks/src/useAsync.ts",
+          "import": "import { useAsync } from '@basilisk/hooks'",
+          "description": "Encapsula uma função assíncrona e expõe seu estado completo: status ('idle'|'loading'|'success'|'error'), data, error, isLoading, isSuccess, isError. Previne atualização de state em componente desmontado. Aceita o parâmetro immediate=true para executar na montagem. Retorna execute() para acionar manualmente e reset() para voltar ao idle.",
+          "whenToUse": "Qualquer chamada assíncrona manual que precisa de controle de estado: fetch de dados ao clicar em botão, operações de upload, chamadas que não se encaixam no padrão de fetch-on-mount.",
+          "whenNotToUse": "Fetching de dados na montagem do componente em projetos com React Query, SWR ou TanStack Query — essas libs já gerenciam esse estado. useAsync é mais adequado para operações manuais (mutations, actions).",
+          "example": "const { execute: saveUser, isLoading, isError, error } = useAsync(api.post('/users'));\n\nconst handleSubmit = async (data) => {\n  await saveUser(data);\n  if (!isError) success('Salvo!');\n};",
+          "tags": ["async", "assíncrono", "loading", "carregando", "fetch", "api", "chamada", "promise", "estado", "state", "erro", "error", "mutation", "action", "submit"]
+        }
+
+      ]
+    },
+
+    "@basilisk/utils": {
+      "description": "Funções utilitárias puras — sem dependências de framework, 100% testadas",
+      "functions": [
+
+        {
+          "name": "cn",
+          "status": "stable",
+          "path": "packages/utils/src/string/cn.ts",
+          "import": "import { cn } from '@basilisk/utils'",
+          "description": "Combina classes CSS com suporte a lógica condicional (via clsx) e resolução de conflitos do Tailwind CSS (via tailwind-merge). Essencial para criar componentes com className override. Substitui o uso direto de clsx ou template strings para classes Tailwind.",
+          "whenToUse": "Em todo componente que aceita className como prop. Ao combinar classes fixas com classes condicionais. Ao mesclar classes de variante com classes externas.",
+          "example": "cn('px-4 py-2 rounded', isActive && 'bg-teal-500 text-white', className)",
+          "tags": ["cn", "classnames", "classes", "tailwind", "merge", "condicional", "conditional", "styles", "estilos", "className"]
+        },
+
+        {
+          "name": "slugify",
+          "status": "stable",
+          "path": "packages/utils/src/string/slugify.ts",
+          "import": "import { slugify } from '@basilisk/utils'",
+          "description": "Transforma qualquer string em slug seguro para URL: remove acentos, converte para minúsculas, substitui espaços por hífens, remove caracteres especiais. Suporta português (ã, ç, é, etc.).",
+          "whenToUse": "Gerar URL amigável a partir de título de artigo, nome de produto ou categoria. Criar identificadores legíveis de arquivo.",
+          "example": "slugify('São Paulo é incrível!') // 'sao-paulo-e-incrivel'",
+          "tags": ["slug", "url", "amigável", "friendly", "permalink", "título", "title", "acentos", "lowercase", "formatação", "format"]
+        },
+
+        {
+          "name": "truncate",
+          "status": "stable",
+          "path": "packages/utils/src/string/truncate.ts",
+          "import": "import { truncate } from '@basilisk/utils'",
+          "description": "Limita uma string a um número máximo de caracteres, adicionando sufixo (padrão: '...'). Não trunca se a string já for menor que o limite. Remove espaços em branco antes do sufixo.",
+          "whenToUse": "Truncar descrições longas em cards, limitar exibição de nome em espaços pequenos, preview de conteúdo.",
+          "example": "truncate('Descrição muito longa do produto', 20) // 'Descrição muito...'",
+          "tags": ["truncate", "truncar", "ellipsis", "reticências", "limite", "limit", "texto", "text", "preview", "resumo"]
+        },
+
+        {
+          "name": "formatCurrency",
+          "status": "stable",
+          "path": "packages/utils/src/number/formatCurrency.ts",
+          "import": "import { formatCurrency } from '@basilisk/utils'",
+          "description": "Formata um número como moeda usando Intl.NumberFormat. Padrão: Real brasileiro (R$ 1.234,50). Configurável para qualquer locale/moeda. Não faz conversão de câmbio — apenas formata o número.",
+          "whenToUse": "Exibir preços, valores monetários, totais de pedido, saldos. Qualquer número que representa dinheiro.",
+          "example": "formatCurrency(1234.5)                           // 'R$ 1.234,50'\nformatCurrency(99.9, { currency: 'USD' })        // 'US$ 99,90'",
+          "tags": ["moeda", "currency", "dinheiro", "money", "preço", "price", "valor", "value", "real", "BRL", "R$", "formatação", "format", "número", "number"]
+        },
+
+        {
+          "name": "formatDate",
+          "status": "stable",
+          "path": "packages/utils/src/date/formatDate.ts",
+          "import": "import { formatDate, diffInDays } from '@basilisk/utils'",
+          "description": "Formata uma data (Date | string | number) usando Intl.DateTimeFormat. Quatro formatos: short (29/03/2026), medium (29 de mar. de 2026), long (29 de março de 2026), full (domingo, 29 de março de 2026). Opcional withTime para incluir hora. diffInDays calcula diferença em dias entre duas datas.",
+          "whenToUse": "Exibir datas em tabelas, cards, detalhes de pedido, logs, timelines. Calcular dias até vencimento ou dias desde criação.",
+          "example": "formatDate(order.createdAt)                          // '29/03/2026'\nformatDate(order.createdAt, { withTime: true })       // '29/03/2026 14:30'\ndiffInDays(new Date('2026-03-01'))                    // 28 (dias desde 01/03)",
+          "tags": ["data", "date", "hora", "time", "formatação", "format", "data/hora", "datetime", "criado em", "created at", "vencimento", "expiry", "dias", "days"]
+        },
+
+        {
+          "name": "validateCPF",
+          "status": "stable",
+          "path": "packages/utils/src/validation/validateCPF.ts",
+          "import": "import { validateCPF } from '@basilisk/utils'",
+          "description": "Valida matematicamente um CPF brasileiro usando o algoritmo dos dígitos verificadores. Aceita CPF com ou sem máscara (xxx.xxx.xxx-xx ou xxxxxxxxxxx). Rejeita sequências repetidas (111.111.111-11). Retorna boolean.",
+          "whenToUse": "Validação de campos de CPF em formulários. Use em conjunto com maskCPF para aplicar a máscara antes de validar.",
+          "example": "validateCPF('529.982.247-25') // true\nvalidateCPF('111.111.111-11') // false (sequência repetida)",
+          "tags": ["cpf", "validar", "validate", "documento", "document", "pessoa física", "individual", "brasil", "brazil", "formulário", "form"]
+        },
+
+        {
+          "name": "validateCNPJ",
+          "status": "stable",
+          "path": "packages/utils/src/validation/validateCNPJ.ts",
+          "import": "import { validateCNPJ } from '@basilisk/utils'",
+          "description": "Valida matematicamente um CNPJ brasileiro usando o algoritmo dos dígitos verificadores. Aceita CNPJ com ou sem máscara. Rejeita sequências repetidas. Retorna boolean.",
+          "whenToUse": "Validação de campos de CNPJ em formulários de cadastro de empresa ou fornecedor.",
+          "example": "validateCNPJ('11.222.333/0001-81') // true",
+          "tags": ["cnpj", "validar", "validate", "empresa", "company", "pessoa jurídica", "fornecedor", "supplier", "brasil", "brazil", "formulário", "form"]
+        },
+
+        {
+          "name": "maskCPF",
+          "status": "stable",
+          "path": "packages/utils/src/masks/index.ts",
+          "import": "import { maskCPF } from '@basilisk/utils'",
+          "description": "Aplica máscara de CPF (000.000.000-00) a uma string de dígitos conforme o usuário digita. Limita a 11 dígitos. Use no evento onChange de um Input.",
+          "example": "onChange={e => setValue(maskCPF(e.target.value))}",
+          "tags": ["cpf", "máscara", "mask", "formatação", "format", "input", "campo", "field", "digitação"]
+        },
+
+        {
+          "name": "maskCNPJ",
+          "status": "stable",
+          "path": "packages/utils/src/masks/index.ts",
+          "import": "import { maskCNPJ } from '@basilisk/utils'",
+          "description": "Aplica máscara de CNPJ (00.000.000/0000-00) conforme o usuário digita. Limita a 14 dígitos.",
+          "example": "onChange={e => setValue(maskCNPJ(e.target.value))}",
+          "tags": ["cnpj", "máscara", "mask", "empresa", "company", "formatação", "format", "input", "digitação"]
+        },
+
+        {
+          "name": "maskPhone",
+          "status": "stable",
+          "path": "packages/utils/src/masks/index.ts",
+          "import": "import { maskPhone } from '@basilisk/utils'",
+          "description": "Aplica máscara de telefone brasileiro conforme o usuário digita. Detecta automaticamente formato fixo (00) 0000-0000 ou celular (00) 00000-0000 com base na quantidade de dígitos.",
+          "example": "onChange={e => setValue(maskPhone(e.target.value))}",
+          "tags": ["telefone", "phone", "celular", "mobile", "fone", "máscara", "mask", "formatação", "format", "input", "contato", "contact"]
+        },
+
+        {
+          "name": "maskCEP",
+          "status": "stable",
+          "path": "packages/utils/src/masks/index.ts",
+          "import": "import { maskCEP } from '@basilisk/utils'",
+          "description": "Aplica máscara de CEP (00000-000) conforme o usuário digita. Limita a 8 dígitos.",
+          "example": "onChange={e => setValue(maskCEP(e.target.value))}",
+          "tags": ["cep", "endereço", "address", "postal", "zip", "máscara", "mask", "formatação", "format", "input"]
+        },
+
+        {
+          "name": "maskMoney",
+          "status": "stable",
+          "path": "packages/utils/src/masks/index.ts",
+          "import": "import { maskMoney } from '@basilisk/utils'",
+          "description": "Aplica máscara monetária em tempo real (R$ 1.234,56) conforme o usuário digita. Ideal para campos de entrada de preço onde o usuário digita apenas números e a formatação é aplicada automaticamente.",
+          "example": "onChange={e => setValue(maskMoney(e.target.value))}",
+          "tags": ["dinheiro", "money", "moeda", "currency", "preço", "price", "valor", "value", "máscara", "mask", "R$", "input", "campo"]
+        }
+
+      ]
+    },
+
+    "@basilisk/schemas": {
+      "description": "Schemas Zod com tipos TypeScript inferidos — validação de formulários e APIs",
+      "schemas": [
+
+        {
+          "name": "userSchema",
+          "status": "stable",
+          "path": "packages/schemas/src/user.ts",
+          "import": "import { userSchema, createUserSchema, updateUserSchema, type User, type CreateUser, type UpdateUser } from '@basilisk/schemas'",
+          "description": "Schema Zod completo para entidade Usuário: id (UUID), name, email, phone, CPF, role (admin|user|viewer), address (aninhado), timestamps. Também exporta createUserSchema (sem id/timestamps) e updateUserSchema (todos os campos opcionais) para operações de CRUD.",
+          "whenToUse": "Validação de formulários de cadastro/edição de usuário. Validação de resposta de API. Tipagem de state e props relacionados a usuário.",
+          "example": "// Formulário de criação de usuário\nconst form = useForm<CreateUser>({ resolver: zodResolver(createUserSchema) });",
+          "tags": ["usuário", "user", "schema", "validação", "validation", "cadastro", "registro", "register", "perfil", "profile", "zod", "formulário", "form", "crud"]
+        },
+
+        {
+          "name": "addressSchema",
+          "status": "stable",
+          "path": "packages/schemas/src/address.ts",
+          "import": "import { addressSchema, type Address } from '@basilisk/schemas'",
+          "description": "Schema Zod para endereço brasileiro: CEP (transformado para apenas dígitos), logradouro, número, complemento (opcional), bairro, cidade e estado (2 chars, uppercase automático). Todas as mensagens de erro em português.",
+          "whenToUse": "Formulário de endereço de entrega, cobrança ou cadastro. Compose dentro de outros schemas (ex: userSchema já inclui address opcionalmente).",
+          "example": "import { addressSchema } from '@basilisk/schemas';\nconst checkoutSchema = z.object({ items: z.array(itemSchema), delivery: addressSchema });",
+          "tags": ["endereço", "address", "cep", "rua", "logradouro", "bairro", "cidade", "estado", "uf", "entrega", "delivery", "cobrança", "billing", "schema", "zod", "formulário"]
+        },
+
+        {
+          "name": "paginationQuerySchema",
+          "status": "stable",
+          "path": "packages/schemas/src/pagination.ts",
+          "import": "import { paginationQuerySchema, paginationMetaSchema, paginatedResponseSchema, type PaginationQuery, type PaginationMeta } from '@basilisk/schemas'",
+          "description": "paginationQuerySchema valida parâmetros de query de listagem: page (min 1), limit (1-100), sortBy, sortOrder (asc|desc), search. paginationMetaSchema valida a meta de resposta. paginatedResponseSchema<T> é uma função que cria um schema genérico de resposta paginada com data[] e meta.",
+          "whenToUse": "Validação de query params em rotas de listagem (Next.js route handlers, Express). Tipagem de resposta da API de listagem. Inferir o tipo dos parâmetros de paginação.",
+          "example": "// Route handler Next.js\nconst query = paginationQuerySchema.parse(searchParams);\n// Resposta tipada\nconst responseSchema = paginatedResponseSchema(userSchema);",
+          "tags": ["paginação", "pagination", "query", "params", "lista", "list", "page", "limit", "sort", "busca", "search", "schema", "api", "response", "zod"]
+        },
+
+        {
+          "name": "loginSchema",
+          "status": "stable",
+          "path": "packages/schemas/src/auth.ts",
+          "import": "import { loginSchema, registerSchema, forgotPasswordSchema, resetPasswordSchema, type LoginInput, type RegisterInput } from '@basilisk/schemas'",
+          "description": "Schemas Zod para fluxo de autenticação completo: loginSchema (email + senha ≥8 chars), registerSchema (nome + email + senha com regras de força + confirmação com refine), forgotPasswordSchema (só email), resetPasswordSchema (token + senha + confirmação).",
+          "whenToUse": "Formulários de login, cadastro, recuperação de senha. Use com React Hook Form + zodResolver.",
+          "example": "const form = useForm<LoginInput>({ resolver: zodResolver(loginSchema) });",
+          "tags": ["login", "autenticação", "auth", "registro", "register", "senha", "password", "esqueci senha", "forgot", "reset", "schema", "zod", "formulário", "form", "validação"]
+        }
+
+      ]
+    },
+
+    "@basilisk/api": {
+      "description": "Cliente HTTP padronizado — Axios com interceptors, tipagem de erro e retry",
+      "exports": [
+
+        {
+          "name": "createApiClient",
+          "status": "stable",
+          "path": "packages/api/src/client.ts",
+          "import": "import { createApiClient } from '@basilisk/api'",
+          "description": "Cria uma instância Axios configurada com os padrões Basilisk: injeção automática do token Bearer no Authorization header (via getAccessToken), tratamento centralizado de erros com tipagem ApiError (message, statusCode, errors), callback onUnauthorized para quando o token expira (401) e timeout padrão de 15s. A instância deve ser criada uma vez e exportada como singleton.",
+          "whenToUse": "Inicializar o cliente HTTP do projeto. Use uma vez em lib/api.ts e importe a instância nos services.",
+          "example": "// lib/api.ts\nexport const api = createApiClient({\n  baseURL: process.env.NEXT_PUBLIC_API_URL!,\n  getAccessToken: () => tokenManager.getAccessToken(),\n  onUnauthorized: () => router.push('/login'),\n});\n\n// services/users.ts\nexport const getUsers = () => api.get<User[]>('/users');",
+          "tags": ["api", "http", "axios", "cliente", "client", "fetch", "requisição", "request", "interceptor", "token", "authorization", "bearer", "setup", "singleton"]
+        },
+
+        {
+          "name": "withRetry",
+          "status": "stable",
+          "path": "packages/api/src/client.ts",
+          "import": "import { withRetry } from '@basilisk/api'",
+          "description": "Wrapper que tenta executar uma função assíncrona até N vezes (padrão: 3) com backoff linear (delay aumenta a cada tentativa). Útil para operações que podem falhar por instabilidade de rede ou sobrecarga momentânea do servidor.",
+          "whenToUse": "Chamadas críticas que devem ser resilientes a falhas temporárias de rede. Operações de upload. Webhooks.",
+          "example": "const data = await withRetry(() => api.get('/critical-data'), 3, 1000);",
+          "tags": ["retry", "tentativa", "resiliência", "resilience", "rede", "network", "falha", "error", "backoff", "instabilidade"]
+        }
+
+      ]
+    },
+
+    "@basilisk/auth": {
+      "description": "Autenticação e autorização — provider de contexto, hooks e gerenciamento de tokens",
+      "exports": [
+
+        {
+          "name": "AuthProvider",
+          "status": "stable",
+          "path": "packages/auth/src/AuthProvider.tsx",
+          "import": "import { AuthProvider } from '@basilisk/auth'",
+          "description": "Provider React que gerencia o estado de autenticação global da aplicação: carrega o usuário a partir do token existente no localStorage na inicialização (via loadUser callback), expõe login(), logout() e updateUser() via contexto. Controla o estado isLoading durante a inicialização para evitar flash de conteúdo não autenticado.",
+          "whenToUse": "Uma única vez no layout raiz da aplicação, dentro de outros providers que ele pode depender (ex: ToastProvider).",
+          "example": "// app/layout.tsx\n<ToastProvider>\n  <AuthProvider\n    loadUser={token => api.get('/me', { headers: { Authorization: `Bearer ${token}` } })}\n    onLogout={() => router.push('/login')}\n  >\n    {children}\n  </AuthProvider>\n</ToastProvider>",
+          "tags": ["autenticação", "auth", "provider", "contexto", "context", "login", "logout", "usuário", "user", "sessão", "session", "inicialização", "setup", "layout"]
+        },
+
+        {
+          "name": "useAuth",
+          "status": "stable",
+          "path": "packages/auth/src/AuthProvider.tsx",
+          "import": "import { useAuth } from '@basilisk/auth'",
+          "description": "Hook que acessa o contexto de autenticação. Expõe: user (AuthUser | null), isAuthenticated (boolean), isLoading (boolean durante init), login(token, refreshToken, user), logout(), updateUser(partial). Lança erro se usado fora de AuthProvider.",
+          "whenToUse": "Em qualquer componente que precisa do usuário logado, proteger rotas, mostrar nome/avatar, verificar permissões, executar login/logout.",
+          "example": "const { user, isAuthenticated, logout } = useAuth();\n\nif (!isAuthenticated) return <Redirect to=\"/login\" />;\n\nreturn <p>Olá, {user.name}</p>;",
+          "tags": ["autenticação", "auth", "usuário", "user", "logado", "logged", "session", "sessão", "permissão", "permission", "role", "perfil", "profile", "hook", "logout", "login"]
+        },
+
+        {
+          "name": "tokenManager",
+          "status": "stable",
+          "path": "packages/auth/src/tokenManager.ts",
+          "import": "import { tokenManager } from '@basilisk/auth'",
+          "description": "Objeto singleton com métodos para gerenciar tokens de autenticação no localStorage: getAccessToken(), getRefreshToken(), setTokens(access, refresh?), clearTokens(), isAuthenticated(). Usa chaves prefixadas com 'basilisk:' para evitar colisões.",
+          "whenToUse": "Dentro de createApiClient (para getAccessToken). Em guards de rota server-side. Para verificar autenticação fora de componentes React.",
+          "example": "const api = createApiClient({\n  getAccessToken: () => tokenManager.getAccessToken(),\n});",
+          "tags": ["token", "jwt", "access token", "refresh token", "localStorage", "storage", "auth", "autenticação", "credenciais", "credentials", "singleton"]
+        }
+
+      ]
+    }
+
+  }
+}
