@@ -1,0 +1,85 @@
+name: Basilisk Libs CI
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'basilisk-libs/**'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'basilisk-libs/**'
+
+defaults:
+  run:
+    working-directory: basilisk-libs
+
+jobs:
+  quality:
+    name: Build & Test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 9
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+          cache-dependency-path: basilisk-libs/pnpm-lock.yaml
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build
+        run: pnpm build
+
+  publish:
+    name: Publish packages
+    needs: quality
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    permissions:
+      contents: write
+      packages: write
+      pull-requests: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 9
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+          cache-dependency-path: basilisk-libs/pnpm-lock.yaml
+          registry-url: https://npm.pkg.github.com
+          scope: "@basilisk"
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build
+        run: pnpm build
+
+      - name: Publish (changesets)
+        uses: changesets/action@v1
+        with:
+          publish: pnpm release
+          cwd: basilisk-libs
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
