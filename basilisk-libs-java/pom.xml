@@ -25,6 +25,8 @@
         <module>basilisk-audit</module>
         <module>basilisk-web</module>
         <module>basilisk-finance</module>
+        <module>basilisk-status</module>
+        <module>basilisk-storage</module>
     </modules>
 
     <properties>
