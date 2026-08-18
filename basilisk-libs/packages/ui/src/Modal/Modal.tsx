@@ -67,7 +67,7 @@ export function Modal({
         ref={dialogRef}
         tabIndex={-1}
         className={cn(
-          "relative z-10 w-full rounded-xl bg-white shadow-modal",
+          "relative z-10 w-full rounded-xl bg-[var(--bsk-surface)] shadow-modal",
           "flex flex-col max-h-[90vh]",
           "outline-none",
           sizeClasses[size]
@@ -75,13 +75,13 @@ export function Modal({
       >
         {/* Header */}
         {title && (
-          <div className="flex items-center justify-between border-b border-gray-100 px-6 py-4">
-            <h2 id="modal-title" className="text-lg font-semibold text-[#0D3B3B]">
+          <div className="flex items-center justify-between border-b border-[var(--bsk-border-light)] px-6 py-4">
+            <h2 id="modal-title" className="text-lg font-semibold text-[var(--bsk-text)]">
               {title}
             </h2>
             <button
               onClick={onClose}
-              className="rounded-md p-1 text-[#8B8B78] hover:bg-[#EAF2F2] hover:text-[#0D3B3B] transition-colors"
+              className="rounded-md p-1 text-[var(--bsk-text-secondary)] hover:bg-[var(--bsk-brand-light)] hover:text-[var(--bsk-text)] transition-colors"
               aria-label="Fechar modal"
             >
               <svg className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
@@ -100,7 +100,7 @@ export function Modal({
 
         {/* Footer */}
         {footer && (
-          <div className="flex justify-end gap-3 border-t border-gray-100 px-6 py-4">
+          <div className="flex justify-end gap-3 border-t border-[var(--bsk-border-light)] px-6 py-4">
             {footer}
           </div>
         )}

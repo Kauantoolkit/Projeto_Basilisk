@@ -1,0 +1,89 @@
+/*
+ * Basilisk Design Tokens
+ * Import this file in your app's CSS to get default theme values.
+ * Override any --bsk-* variable to customize.
+ */
+
+:root {
+  /* Brand — single accent */
+  --bsk-brand: oklch(0.55 0.10 185);
+  --bsk-brand-hover: oklch(0.50 0.10 185);
+  --bsk-brand-active: oklch(0.45 0.10 185);
+  --bsk-brand-light: oklch(0.94 0.03 185);
+  --bsk-brand-subtle: oklch(0.60 0.08 185);
+
+  /* Text — warm-toned grays, never pure black */
+  --bsk-text: oklch(0.20 0.015 250);
+  --bsk-text-secondary: oklch(0.45 0.01 250);
+  --bsk-text-on-brand: oklch(0.98 0.005 250);
+
+  /* Surface */
+  --bsk-surface: oklch(0.97 0.005 250);
+  --bsk-surface-raised: oklch(0.99 0.003 250);
+  --bsk-surface-hover: oklch(0.94 0.01 250);
+
+  /* Border */
+  --bsk-border: oklch(0.88 0.008 250);
+  --bsk-border-light: oklch(0.92 0.006 250);
+
+  /* Semantic */
+  --bsk-danger: oklch(0.55 0.20 25);
+  --bsk-danger-hover: oklch(0.48 0.20 25);
+  --bsk-danger-active: oklch(0.42 0.20 25);
+  --bsk-success: oklch(0.55 0.15 150);
+  --bsk-warning: oklch(0.70 0.15 70);
+
+  /* Typography — single family */
+  --bsk-font-display: 'Plus Jakarta Sans', system-ui, sans-serif;
+  --bsk-font-body: 'Plus Jakarta Sans', system-ui, sans-serif;
+  --bsk-font-mono: 'JetBrains Mono', ui-monospace, monospace;
+
+  /* Radius */
+  --bsk-radius-sm: 0.5rem;
+  --bsk-radius-md: 0.625rem;
+  --bsk-radius-lg: 0.75rem;
+  --bsk-radius-xl: 0.75rem;
+
+  /* Shadow */
+  --bsk-shadow-sm: 0 1px 2px oklch(0 0 0 / 0.05);
+  --bsk-shadow-card: 0 1px 3px oklch(0 0 0 / 0.06), 0 1px 2px oklch(0 0 0 / 0.04);
+  --bsk-shadow-modal: 0 20px 60px oklch(0 0 0 / 0.15);
+}
+
+/* Dark theme */
+.dark, [data-theme="dark"] {
+  /* Brand */
+  --bsk-brand: oklch(0.65 0.10 185);
+  --bsk-brand-hover: oklch(0.70 0.10 185);
+  --bsk-brand-active: oklch(0.75 0.08 185);
+  --bsk-brand-light: oklch(0.25 0.04 185);
+  --bsk-brand-subtle: oklch(0.22 0.03 185);
+
+  /* Text — proper contrast on oklch(0.20) surfaces
+     Secondary: lightness >= 0.64 for 12-13px text
+     Labels uppercase: lightness >= 0.67 */
+  --bsk-text: oklch(0.90 0.01 250);
+  --bsk-text-secondary: oklch(0.65 0.01 250);
+  --bsk-text-on-brand: oklch(0.98 0.005 250);
+
+  /* Surface — page darkest, cards one step lighter, single elevation */
+  --bsk-surface: oklch(0.16 0.015 250);
+  --bsk-surface-raised: oklch(0.20 0.015 250);
+  --bsk-surface-hover: oklch(0.24 0.015 250);
+
+  /* Border — one step above card */
+  --bsk-border: oklch(0.28 0.012 250);
+  --bsk-border-light: oklch(0.24 0.012 250);
+
+  /* Semantic */
+  --bsk-danger: oklch(0.65 0.20 25);
+  --bsk-danger-hover: oklch(0.70 0.18 25);
+  --bsk-danger-active: oklch(0.75 0.15 25);
+  --bsk-success: oklch(0.65 0.15 150);
+  --bsk-warning: oklch(0.75 0.15 70);
+
+  /* Shadow */
+  --bsk-shadow-sm: 0 1px 2px oklch(0 0 0 / 0.3);
+  --bsk-shadow-card: none;
+  --bsk-shadow-modal: 0 20px 60px oklch(0 0 0 / 0.5);
+}

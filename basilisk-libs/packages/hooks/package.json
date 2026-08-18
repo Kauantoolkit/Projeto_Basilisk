@@ -1,6 +1,14 @@
 {
   "name": "@basilisk/hooks",
   "version": "0.1.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Kauantoolkit/Projeto_Basilisk.git",
+    "directory": "basilisk-libs/packages/hooks"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
   "description": "React hooks reutilizáveis",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",

@@ -50,16 +50,16 @@ export function DataTable<T>({
   className,
 }: DataTableProps<T>) {
   return (
-    <div className={cn("w-full overflow-x-auto rounded-xl border border-gray-100 shadow-card", className)}>
+    <div className={cn("w-full overflow-x-auto rounded-xl border border-[var(--bsk-border-light)] shadow-card", className)}>
       <table className="w-full border-collapse text-sm">
         <thead>
-          <tr className="bg-[#EAF2F2]">
+          <tr className="bg-[var(--bsk-brand-light)]">
             {columns.map((col) => (
               <th
                 key={col.header}
                 style={{ width: col.width }}
                 className={cn(
-                  "px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-[#1E5C5C]",
+                  "px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-[var(--bsk-brand-hover)]",
                   col.align === "center" && "text-center",
                   col.align === "right" && "text-right"
                 )}
@@ -70,13 +70,13 @@ export function DataTable<T>({
           </tr>
         </thead>
 
-        <tbody className="divide-y divide-gray-50 bg-white">
+        <tbody className="divide-y divide-[var(--bsk-border-light)] bg-[var(--bsk-surface)]">
           {isLoading ? (
             Array.from({ length: 5 }).map((_, i) => (
               <tr key={i}>
                 {columns.map((col) => (
                   <td key={col.header} className="px-4 py-3">
-                    <div className="h-4 animate-pulse rounded bg-gray-100" />
+                    <div className="h-4 animate-pulse rounded bg-[var(--bsk-border-light)]" />
                   </td>
                 ))}
               </tr>
@@ -85,7 +85,7 @@ export function DataTable<T>({
             <tr>
               <td
                 colSpan={columns.length}
-                className="px-4 py-10 text-center text-[#8B8B78]"
+                className="px-4 py-10 text-center text-[var(--bsk-text-secondary)]"
               >
                 {emptyMessage}
               </td>
@@ -97,14 +97,14 @@ export function DataTable<T>({
                 onClick={onRowClick ? () => onRowClick(row) : undefined}
                 className={cn(
                   "transition-colors duration-100",
-                  onRowClick && "cursor-pointer hover:bg-[#EAF2F2]/50"
+                  onRowClick && "cursor-pointer hover:bg-[var(--bsk-surface-hover)]"
                 )}
               >
                 {columns.map((col) => (
                   <td
                     key={col.header}
                     className={cn(
-                      "px-4 py-3 text-[#0D3B3B]",
+                      "px-4 py-3 text-[var(--bsk-text)]",
                       col.align === "center" && "text-center",
                       col.align === "right" && "text-right"
                     )}

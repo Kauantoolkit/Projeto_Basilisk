@@ -1,6 +1,14 @@
 {
   "name": "@basilisk/auth",
   "version": "0.1.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Kauantoolkit/Projeto_Basilisk.git",
+    "directory": "basilisk-libs/packages/auth"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
   "description": "Autenticação e autorização — provider, hooks e guards",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",

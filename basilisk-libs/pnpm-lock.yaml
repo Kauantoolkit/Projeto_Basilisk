@@ -96,15 +96,21 @@ importers:
       '@testing-library/react':
         specifier: ^15.0.6
         version: 15.0.7(@types/react@18.3.28)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@testing-library/react-hooks':
-        specifier: ^8.0.1
-        version: 8.0.1(@types/react@18.3.28)(react@18.3.1)
+      '@testing-library/user-event':
+        specifier: ^14.5.2
+        version: 14.6.1(@testing-library/dom@10.4.1)
       '@types/react':
         specifier: ^18.3.1
         version: 18.3.28
+      '@types/react-dom':
+        specifier: ^18.3.0
+        version: 18.3.7(@types/react@18.3.28)
       react:
         specifier: ^18.3.1
         version: 18.3.1
+      react-dom:
+        specifier: ^18.3.1
+        version: 18.3.1(react@18.3.1)
       tsup:
         specifier: ^8.0.2
         version: 8.5.1(jiti@1.21.7)(postcss@8.5.8)(typescript@5.9.3)
@@ -187,6 +193,13 @@ importers:
         version: 1.6.1
 
   packages/utils:
+    dependencies:
+      clsx:
+        specifier: ^2.1.1
+        version: 2.1.1
+      tailwind-merge:
+        specifier: ^2.3.0
+        version: 2.6.1
     devDependencies:
       '@basilisk/config':
         specifier: workspace:*
@@ -784,22 +797,6 @@ packages:
   '@testing-library/jest-dom@6.9.1':
     resolution: {integrity: sha512-zIcONa+hVtVSSep9UT3jZ5rizo2BsxgyDYU7WFD5eICBE7no3881HGeb/QkGfsJs6JTkY1aQhT7rIPC7e+0nnA==}
     engines: {node: '>=14', npm: '>=6', yarn: '>=1'}
-
-  '@testing-library/react-hooks@8.0.1':
-    resolution: {integrity: sha512-Aqhl2IVmLt8IovEVarNDFuJDVWVvhnr9/GCU6UUnrYXwgDFF9h2L2o2P9KBni1AST5sT6riAyoukFLyjQUgD/g==}
-    engines: {node: '>=12'}
-    peerDependencies:
-      '@types/react': ^16.9.0 || ^17.0.0
-      react: ^16.9.0 || ^17.0.0
-      react-dom: ^16.9.0 || ^17.0.0
-      react-test-renderer: ^16.9.0 || ^17.0.0
-    peerDependenciesMeta:
-      '@types/react':
-        optional: true
-      react-dom:
-        optional: true
-      react-test-renderer:
-        optional: true
 
   '@testing-library/react@15.0.7':
     resolution: {integrity: sha512-cg0RvEdD1TIhhkm1IeYMQxrzy0MtUNfa3minv4MjbgcYzJAZ7yD0i0lwoPOTPr+INtiXFezt2o8xMSnyHhEn2Q==}
@@ -2168,12 +2165,6 @@ packages:
     peerDependencies:
       react: ^18.3.1
 
-  react-error-boundary@3.1.4:
-    resolution: {integrity: sha512-uM9uPzZJTF6wRQORmSrvOIgt4lJ9MC1sNgEOj2XGsDTRE4kmpWxg7ENK9EWNKJRMAOY9z0MuF4yIfl6gp4sotA==}
-    engines: {node: '>=10', npm: '>=6'}
-    peerDependencies:
-      react: '>=16.13.1'
-
   react-is@16.13.1:
     resolution: {integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==}
 
@@ -3130,14 +3121,6 @@ snapshots:
       dom-accessibility-api: 0.6.3
       picocolors: 1.1.1
       redent: 3.0.0
-
-  '@testing-library/react-hooks@8.0.1(@types/react@18.3.28)(react@18.3.1)':
-    dependencies:
-      '@babel/runtime': 7.29.2
-      react: 18.3.1
-      react-error-boundary: 3.1.4(react@18.3.1)
-    optionalDependencies:
-      '@types/react': 18.3.28
 
   '@testing-library/react@15.0.7(@types/react@18.3.28)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
@@ -4686,11 +4669,6 @@ snapshots:
       loose-envify: 1.4.0
       react: 18.3.1
       scheduler: 0.23.2
-
-  react-error-boundary@3.1.4(react@18.3.1):
-    dependencies:
-      '@babel/runtime': 7.29.2
-      react: 18.3.1
 
   react-is@16.13.1: {}
 
