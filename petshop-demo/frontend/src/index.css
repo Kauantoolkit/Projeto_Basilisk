@@ -1,0 +1,20 @@
+@import "tailwindcss";
+@import "@basilisk/ui/tokens.css";
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+
+@source "../node_modules/@basilisk/ui/dist/**/*.{js,mjs}";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+body {
+  margin: 0;
+  font-family: var(--bsk-font-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: var(--bsk-text);
+  background: var(--bsk-surface);
+}
+
+#root {
+  min-height: 100vh;
+}
