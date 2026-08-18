@@ -1,4 +1,4 @@
-import { cva, type VariantProps } from "class-variance-authority";
+import { cva } from "class-variance-authority";
 import { forwardRef } from "react";
 
 import { cn } from "@basilisk/utils";
@@ -8,8 +8,8 @@ import type { ButtonProps } from "./Button.types";
 const buttonVariants = cva(
   [
     "inline-flex items-center justify-center gap-2",
-    "font-medium rounded-md transition-all duration-150",
-    "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2",
+    "font-medium rounded-[8px] transition-all duration-150",
+    "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--bsk-surface)]",
     "disabled:pointer-events-none disabled:opacity-50",
     "select-none",
   ],
@@ -17,29 +17,29 @@ const buttonVariants = cva(
     variants: {
       variant: {
         primary: [
-          "bg-[#3A8585] text-white",
-          "hover:bg-[#1E5C5C] active:bg-[#0D3B3B]",
-          "focus-visible:ring-[#3A8585]",
+          "bg-[var(--bsk-brand)] text-[var(--bsk-text-on-brand)]",
+          "hover:bg-[var(--bsk-brand-hover)] active:bg-[var(--bsk-brand-active)]",
+          "focus-visible:ring-[var(--bsk-brand)]",
         ],
         secondary: [
-          "bg-[#EAF2F2] text-[#0D3B3B]",
-          "hover:bg-[#5BA3A0]/20 active:bg-[#5BA3A0]/30",
-          "focus-visible:ring-[#3A8585]",
+          "bg-[var(--bsk-brand-light)] text-[var(--bsk-text)]",
+          "hover:bg-[var(--bsk-brand-light)] active:bg-[var(--bsk-brand-light)]",
+          "focus-visible:ring-[var(--bsk-brand)]",
         ],
         outline: [
-          "border border-[#3A8585] text-[#3A8585] bg-transparent",
-          "hover:bg-[#3A8585] hover:text-white",
-          "focus-visible:ring-[#3A8585]",
+          "border border-[var(--bsk-brand)] text-[var(--bsk-brand)] bg-transparent",
+          "hover:bg-[var(--bsk-brand)] hover:text-[var(--bsk-text-on-brand)]",
+          "focus-visible:ring-[var(--bsk-brand)]",
         ],
         ghost: [
-          "text-[#3A8585] bg-transparent",
-          "hover:bg-[#EAF2F2]",
-          "focus-visible:ring-[#3A8585]",
+          "text-[var(--bsk-brand)] bg-transparent",
+          "hover:bg-[var(--bsk-brand-light)]",
+          "focus-visible:ring-[var(--bsk-brand)]",
         ],
         danger: [
-          "bg-red-600 text-white",
-          "hover:bg-red-700 active:bg-red-800",
-          "focus-visible:ring-red-500",
+          "bg-[var(--bsk-danger)] text-[var(--bsk-text-on-brand)]",
+          "hover:bg-[var(--bsk-danger-hover)] active:bg-[var(--bsk-danger-active)]",
+          "focus-visible:ring-[var(--bsk-danger)]",
         ],
       },
       size: {

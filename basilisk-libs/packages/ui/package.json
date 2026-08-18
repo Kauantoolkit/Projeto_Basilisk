@@ -1,6 +1,14 @@
 {
   "name": "@basilisk/ui",
   "version": "0.1.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Kauantoolkit/Projeto_Basilisk.git",
+    "directory": "basilisk-libs/packages/ui"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
   "description": "Componentes visuais React — design system Basilisk",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
@@ -10,11 +18,12 @@
       "import": "./dist/index.mjs",
       "require": "./dist/index.js",
       "types": "./dist/index.d.ts"
-    }
+    },
+    "./tokens.css": "./src/tokens.css"
   },
   "scripts": {
-    "build": "tsup src/index.ts --format cjs,esm --dts --external react",
-    "dev": "tsup src/index.ts --format cjs,esm --dts --external react --watch",
+    "build": "tsup src/index.ts --format cjs,esm --dts --external react --splitting",
+    "dev": "tsup src/index.ts --format cjs,esm --dts --external react --splitting --watch",
     "test": "vitest run",
     "lint": "eslint src --ext .ts,.tsx",
     "clean": "rm -rf dist"

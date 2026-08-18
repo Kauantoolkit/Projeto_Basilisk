@@ -1,4 +1,4 @@
-import { createContext, useCallback, useContext, useId, useState } from "react";
+import { createContext, useCallback, useContext, useState } from "react";
 
 import { cn } from "@basilisk/utils";
 

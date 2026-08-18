@@ -27,18 +27,18 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
         {label && (
           <label
             htmlFor={id}
-            className="text-sm font-medium text-[#0D3B3B]"
+            className="text-sm font-medium text-[var(--bsk-text)]"
           >
             {label}
             {props.required && (
-              <span className="ml-1 text-red-500" aria-hidden="true">*</span>
+              <span className="ml-1 text-[var(--bsk-danger)]" aria-hidden="true">*</span>
             )}
           </label>
         )}
 
         <div className="relative flex items-center">
           {leftIcon && (
-            <span className="absolute left-3 text-[#8B8B78] pointer-events-none">
+            <span className="absolute left-3 text-[var(--bsk-text-secondary)] pointer-events-none">
               {leftIcon}
             </span>
           )}
@@ -47,14 +47,14 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
             ref={ref}
             id={id}
             className={cn(
-              "h-10 w-full rounded-md border bg-white px-3 py-2 text-sm text-[#0D3B3B]",
-              "placeholder:text-[#8B8B78]",
+              "h-10 w-full rounded-md border bg-[var(--bsk-surface)] px-3 py-2 text-sm text-[var(--bsk-text)]",
+              "placeholder:text-[var(--bsk-text-secondary)]",
               "transition-colors duration-150",
-              "focus:outline-none focus:ring-2 focus:ring-[#3A8585] focus:border-[#3A8585]",
-              "disabled:cursor-not-allowed disabled:bg-gray-50 disabled:opacity-60",
+              "focus:outline-none focus:ring-2 focus:ring-[var(--bsk-brand)] focus:border-[var(--bsk-brand)]",
+              "disabled:cursor-not-allowed disabled:bg-[var(--bsk-surface-raised)] disabled:opacity-60",
               error
                 ? "border-red-400 focus:ring-red-400"
-                : "border-gray-300 hover:border-[#5BA3A0]",
+                : "border-[var(--bsk-border)] hover:border-[var(--bsk-brand-subtle)]",
               leftIcon && "pl-10",
               rightIcon && "pr-10",
               fullWidth && "w-full",
@@ -68,20 +68,20 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
           />
 
           {rightIcon && (
-            <span className="absolute right-3 text-[#8B8B78] pointer-events-none">
+            <span className="absolute right-3 text-[var(--bsk-text-secondary)] pointer-events-none">
               {rightIcon}
             </span>
           )}
         </div>
 
         {error && (
-          <p id={`${id}-error`} className="text-xs text-red-500" role="alert">
+          <p id={`${id}-error`} className="text-xs text-[var(--bsk-danger)]" role="alert">
             {error}
           </p>
         )}
 
         {!error && helperText && (
-          <p id={`${id}-helper`} className="text-xs text-[#8B8B78]">
+          <p id={`${id}-helper`} className="text-xs text-[var(--bsk-text-secondary)]">
             {helperText}
           </p>
         )}
