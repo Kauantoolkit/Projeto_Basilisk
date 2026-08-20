@@ -3,6 +3,7 @@ package com.basilisk.petshop.customer;
 import com.basilisk.core.dto.ApiResponse;
 import com.basilisk.core.exception.BusinessException;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -20,14 +21,14 @@ public class CustomerController {
 
     record CreateCustomerRequest(
             @NotBlank String name,
-            String email,
+            @Email String email,
             String phone,
             String address
     ) {}
 
     record UpdateCustomerRequest(
             @NotBlank String name,
-            String email,
+            @Email String email,
             String phone,
             String address
     ) {}
