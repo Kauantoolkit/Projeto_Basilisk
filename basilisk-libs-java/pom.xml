@@ -27,6 +27,7 @@
         <module>basilisk-finance</module>
         <module>basilisk-status</module>
         <module>basilisk-storage</module>
+        <module>basilisk-email</module>
     </modules>
 
     <properties>
