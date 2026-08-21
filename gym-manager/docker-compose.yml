@@ -1,0 +1,20 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: gymdb
+    environment:
+      POSTGRES_DB: gymdb
+      POSTGRES_USER: gym
+      POSTGRES_PASSWORD: gym123
+    ports:
+      - "5433:5432"
+    volumes:
+      - gymdb_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U gym -d gymdb"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  gymdb_data:
