@@ -1,0 +1,29 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5433/gymdb
+    username: gym
+    password: gym123
+  jpa:
+    hibernate:
+      ddl-auto: update
+    open-in-view: false
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: true
+
+server:
+  port: 8080
+
+basilisk:
+  security:
+    jwt:
+      secret: gym-manager-demo-secret-key-change-in-production
+      expirationMs: 86400000
+  email:
+    from: "Gym Manager <noreply@basilisk.dev.br>"
+    frontend-url: http://localhost:3001
+
+logging:
+  level:
+    com.basilisk: info
