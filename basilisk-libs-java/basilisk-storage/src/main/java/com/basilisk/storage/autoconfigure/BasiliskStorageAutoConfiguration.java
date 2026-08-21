@@ -27,8 +27,9 @@ public class BasiliskStorageAutoConfiguration {
 
     @Bean
     @ConditionalOnMissingBean
-    public StorageService storageService(StorageProvider storageProvider, StoredFileRepository repository) {
-        return new StorageService(storageProvider, repository);
+    public StorageService storageService(StorageProvider storageProvider, StoredFileRepository repository,
+                                         StorageProperties properties) {
+        return new StorageService(storageProvider, repository, properties);
     }
 
     @Bean

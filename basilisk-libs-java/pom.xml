@@ -28,6 +28,9 @@
         <module>basilisk-status</module>
         <module>basilisk-storage</module>
         <module>basilisk-email</module>
+        <module>basilisk-notification</module>
+        <module>basilisk-tenant</module>
+        <module>basilisk-user</module>
     </modules>
 
     <properties>
@@ -47,6 +50,21 @@
             <dependency>
                 <groupId>com.basilisk</groupId>
                 <artifactId>basilisk-security</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.basilisk</groupId>
+                <artifactId>basilisk-permission</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.basilisk</groupId>
+                <artifactId>basilisk-tenant</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.basilisk</groupId>
+                <artifactId>basilisk-user</artifactId>
                 <version>${project.version}</version>
             </dependency>
 

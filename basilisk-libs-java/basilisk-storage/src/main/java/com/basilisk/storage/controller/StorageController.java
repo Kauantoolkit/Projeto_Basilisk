@@ -1,6 +1,7 @@
 package com.basilisk.storage.controller;
 
 import com.basilisk.storage.entity.StoredFile;
+import com.basilisk.storage.entity.StoredFile.Visibility;
 import com.basilisk.storage.service.StorageService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Endpoints REST para upload, download e gerenciamento de arquivos.
@@ -18,6 +20,7 @@ import java.util.List;
  * GET    /api/storage/{id}/download                   - download de arquivo
  * DELETE /api/storage/{id}                            - remoção de arquivo
  * GET    /api/storage/entity/{entityType}/{entityId}  - listagem por entidade
+ * GET    /api/storage/user/{uploadedBy}               - listagem por usuário
  */
 @RestController
 @RequestMapping("/api/storage")
@@ -31,8 +34,10 @@ public class StorageController {
             @RequestParam("file") MultipartFile file,
             @RequestParam(value = "directory", defaultValue = "general") String directory,
             @RequestParam(value = "entityType", required = false) String entityType,
-            @RequestParam(value = "entityId", required = false) String entityId) {
-        return storageService.upload(file, directory, entityType, entityId);
+            @RequestParam(value = "entityId", required = false) String entityId,
+            @RequestParam(value = "uploadedBy", required = false) UUID uploadedBy,
+            @RequestParam(value = "visibility", defaultValue = "PRIVATE") Visibility visibility) {
+        return storageService.upload(file, directory, entityType, entityId, uploadedBy, visibility);
     }
 
     @GetMapping("/{id}/download")
@@ -58,5 +63,10 @@ public class StorageController {
             @PathVariable String entityType,
             @PathVariable String entityId) {
         return storageService.findByEntity(entityType, entityId);
+    }
+
+    @GetMapping("/user/{uploadedBy}")
+    public List<StoredFile> findByUploadedBy(@PathVariable UUID uploadedBy) {
+        return storageService.findByUploadedBy(uploadedBy);
     }
 }

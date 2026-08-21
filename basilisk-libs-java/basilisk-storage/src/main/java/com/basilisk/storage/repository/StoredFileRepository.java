@@ -9,4 +9,6 @@ import java.util.UUID;
 public interface StoredFileRepository extends JpaRepository<StoredFile, UUID> {
 
     List<StoredFile> findByEntityTypeAndEntityId(String entityType, String entityId);
+
+    List<StoredFile> findByUploadedBy(UUID uploadedBy);
 }

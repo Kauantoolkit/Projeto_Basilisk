@@ -2,16 +2,14 @@ package com.basilisk.permission.aspect;
 
 import com.basilisk.core.exception.BusinessException;
 import com.basilisk.permission.annotation.RequiresPermission;
-import com.basilisk.permission.cache.PermissionCache;
-import com.basilisk.permission.resolver.UserIdResolver;
-import com.basilisk.permission.service.PermissionService;
+import com.basilisk.permission.service.RoleService;
+import com.basilisk.permission.service.UserRoleResolver;
 import lombok.RequiredArgsConstructor;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.UUID;
 
@@ -19,23 +17,34 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class PermissionAspect {
 
-    private final PermissionService permissionService;
-    private final PermissionCache permissionCache;
-    private final UserIdResolver userIdResolver;
+    private final RoleService roleService;
+    private final UserRoleResolver userRoleResolver;
 
     @Before("@annotation(requires)")
     public void checkPermission(RequiresPermission requires) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if (auth == null || !auth.isAuthenticated()) {
+        if (auth == null || !auth.isAuthenticated() || "anonymousUser".equals(auth.getPrincipal())) {
             throw new BusinessException("Não autenticado", HttpStatus.UNAUTHORIZED);
         }
 
-        UserDetails userDetails = (UserDetails) auth.getPrincipal();
-        UUID userId = userIdResolver.resolve(userDetails);
-        long required = permissionCache.resolve(requires.permissions());
+        UUID roleId = userRoleResolver.resolve(auth);
+        if (roleId == null) {
+            throw new BusinessException("Usuário sem role atribuída", HttpStatus.FORBIDDEN);
+        }
 
-        if (!permissionService.hasPermission(userId, requires.resource(), required)) {
-            throw new BusinessException("Acesso negado ao recurso: " + requires.resource(), HttpStatus.FORBIDDEN);
+        for (String permission : requires.value()) {
+            String[] parts = permission.split(":");
+            if (parts.length != 2) {
+                throw new BusinessException(
+                        "Formato de permissão inválido: '" + permission + "'. Use 'resource:action'",
+                        HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+            String resource = parts[0];
+            String action = parts[1];
+
+            if (!roleService.hasPermission(roleId, resource, action)) {
+                throw new BusinessException("Acesso negado: " + permission, HttpStatus.FORBIDDEN);
+            }
         }
     }
 }
