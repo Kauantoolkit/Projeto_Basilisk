@@ -7,7 +7,6 @@ Monorepo do ecossistema **Basilisk** — bibliotecas reutilizáveis que extraio 
 ## Conteúdo
 
 ```
-basilisk-libs-java/     bibliotecas Java (Maven multi-módulo)
 basilisk-libs/          bibliotecas TypeScript (monorepo)
 basilisk-api/           API Spring Boot de referência
 gym-manager/            app demo (academia) consumindo as libs
@@ -16,6 +15,8 @@ Basilisk_docs/          documentação
 ```
 
 ### Bibliotecas Java (`basilisk-libs-java`)
+
+Vivem em repositório próprio (privado): [Kauantoolkit/basilisk-libs-java](https://github.com/Kauantoolkit/basilisk-libs-java), publicadas no GitHub Packages. Os apps deste monorepo consomem pelo Maven — precisam das variáveis `GITHUB_ACTOR` e `GITHUB_TOKEN` (PAT classic com `read:packages`).
 
 12 módulos, cada um resolvendo uma preocupação transversal:
 
