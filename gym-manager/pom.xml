@@ -22,6 +22,14 @@
         <basilisk.version>0.1.0</basilisk.version>
     </properties>
 
+    <!-- Libs Basilisk: pacote privado no GitHub Packages (credencial em .mvn/settings.xml) -->
+    <repositories>
+        <repository>
+            <id>github</id>
+            <url>https://maven.pkg.github.com/Kauantoolkit/basilisk-libs-java</url>
+        </repository>
+    </repositories>
+
     <dependencies>
         <!-- Basilisk modules -->
         <dependency>
