@@ -38,7 +38,15 @@ export function LoginPage() {
       const data = res.data;
       if (!data.success) { setError("Credenciais invalidas"); return; }
       const { token, name: userName } = data.data;
-      login(token, "", { id: "", name: userName, email, role: "user" });
+      login(token, "", {
+        id: "",
+        name: userName,
+        email,
+        tenantId: "",
+        tenantName: "",
+        roleId: "",
+        roleName: "user",
+      });
     } catch (err: unknown) {
       if (err instanceof AxiosError && err.response?.data) {
         const body = err.response.data;

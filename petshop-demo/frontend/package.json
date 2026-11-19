@@ -10,11 +10,11 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@basilisk/api": "file:../../basilisk-libs/packages/api",
-    "@basilisk/auth": "file:../../basilisk-libs/packages/auth",
-    "@basilisk/hooks": "file:../../basilisk-libs/packages/hooks",
-    "@basilisk/ui": "file:../../basilisk-libs/packages/ui",
-    "@basilisk/utils": "file:../../basilisk-libs/packages/utils",
+    "@basilisk/api": "file:../../../basilisk-libs/packages/api",
+    "@basilisk/auth": "file:../../../basilisk-libs/packages/auth",
+    "@basilisk/hooks": "file:../../../basilisk-libs/packages/hooks",
+    "@basilisk/ui": "file:../../../basilisk-libs/packages/ui",
+    "@basilisk/utils": "file:../../../basilisk-libs/packages/utils",
     "@tailwindcss/vite": "^4.3.3",
     "axios": "^1.19.0",
     "lucide-react": "^1.31.0",

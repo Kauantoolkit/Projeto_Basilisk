@@ -7,7 +7,6 @@ Monorepo do ecossistema **Basilisk** — bibliotecas reutilizáveis que extraio 
 ## Conteúdo
 
 ```
-basilisk-libs/          bibliotecas TypeScript (monorepo)
 basilisk-api/           API Spring Boot de referência
 gym-manager/            app demo (academia) consumindo as libs
 petshop-demo/           app demo (petshop)
@@ -24,7 +23,9 @@ Vivem em repositório próprio (privado): [Kauantoolkit/basilisk-libs-java](http
 
 ### Bibliotecas TypeScript (`basilisk-libs`)
 
-`api` · `auth` · `config` · `hooks` · `schemas` · `ui` · `utils`
+Vivem em repositório próprio: [Kauantoolkit/basilisk-libs](https://github.com/Kauantoolkit/basilisk-libs). Os frontends deste monorepo consomem por caminho local (`file:../../../basilisk-libs/packages/*`), então o repo precisa estar clonado ao lado deste (`repos/basilisk-libs`) e compilado (`pnpm install && pnpm build`).
+
+`api` · `auth` · `config` · `hooks` · `schemas` · `ui` · `utils` · `shell` — e para Angular: `ng-auth` · `ng-ui` · `ng-shell`
 
 Componentes de UI, autenticação, hooks de React, schemas de validação e utilitários compartilhados entre frontends.
 
